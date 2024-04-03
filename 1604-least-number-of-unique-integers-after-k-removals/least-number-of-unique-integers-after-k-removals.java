@@ -1,19 +1,13 @@
 class Solution {
     public int findLeastNumOfUniqueInts(int[] arr, int k) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int num:arr){
-            map.put(num,map.getOrDefault(num,0)+1);
+        Map<Integer, Integer> count = new HashMap<>();
+        for (final int a : arr){
+            count.merge(a, 1, Integer::sum);
         }
-        List<Map.Entry<Integer,Integer>> elements=new ArrayList<>(map.entrySet());
-        elements.sort((a,b)->a.getValue()-b.getValue());
-        for(Map.Entry<Integer,Integer>entry:elements){
-            if(entry.getValue()<=k){
-                k-=entry.getValue();
-                map.remove(entry.getKey());
-            }else{
-                break;
-            }
+        Queue<Integer> minHeap = new PriorityQueue<>(count.values());
+        while (k > 0){
+            k -= minHeap.poll();
         }
-        return map.size();
+        return minHeap.size() + (k < 0 ? 1 : 0);
     }
 }
