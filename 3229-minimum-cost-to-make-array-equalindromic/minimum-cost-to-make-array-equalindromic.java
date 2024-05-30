@@ -1,25 +1,28 @@
 class Solution {
     public long minimumCost(int[] nums) {
-        int n=nums.length;
+        int n = nums.length;
         Arrays.sort(nums);
-        int medium=nums[n/2],inc=medium,dec=medium;
-        while(!isPalidrome(inc))inc++;
-        while(!isPalidrome(dec))dec--;
-        return Math.min(cost(nums,inc),cost(nums,dec));
+        int mid = nums[n/2];
+        int in = mid;
+        int dc = mid;
+        while(!isPal(in)) in++;
+        while(!isPal(dc)) dc--;
+        return Math.min(calculateCost(nums,in),calculateCost(nums,dc));
+
     }
-    public boolean isPalidrome(int n){
-        int r,sum=0,tmp;
-        tmp=n;
+    public boolean isPal(int n){
+        int r, s = 0, temp;
+        temp = n;
         while(n>0){
-            r=n%10;
-            sum=(sum*10)+r;
-            n=n/10;
+            r = n % 10;
+            s = (s * 10) + r;
+            n /= 10;
         }
-        return tmp==sum;
+        return temp == s;
     }
-    public long cost(int[] nums,int r){
-        long cost=0;
-        for(int n:nums)cost+=Math.abs(n-r);
+    public long calculateCost(int [] nums, int r){
+        long cost = 0;
+        for(int n : nums) cost += Math.abs(n-r);
         return cost;
     }
 }
