@@ -1,15 +1,26 @@
 class Solution {
     public int maximumCandies(int[] candies, long k) {
-        int left=0,right=10000000;
-        while(left<right){
-            long sum=0;
-            int mid=(left+right+1)/2;
-            for(int a:candies){
-                sum+=a/mid;
-            }
-            if(k>sum) right=mid-1;
-            else left=mid;
+        long sum = 0;
+        for(int i = 0 ; i < candies.length; i++){
+            sum+= candies[i];
         }
-        return left;
+        int left = 1;
+        int right = (int)(sum/k);
+        
+        while(left <= right){
+            int mid = (right - left) / 2 + left;
+            long count = 0;
+            
+            for(int i = 0 ; i < candies.length; i++){
+                count+= candies[i]/mid;
+            }
+            if(count >= k){
+                left = mid+1;
+            }
+            else{
+                right = mid-1;
+            }
+        }
+        return right;
     }
 }
