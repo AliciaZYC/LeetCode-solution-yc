@@ -2,9 +2,9 @@ class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         res=nums[0]
         plus=0
-        for i in range(len(nums)):
+        for num in nums:
             if plus <0:
                 plus=0
-            plus+=nums[i]
+            plus+=num
             res=max(res,plus)
         return res
