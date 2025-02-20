@@ -9,10 +9,13 @@ values = {
 }
 class Solution:
     def romanToInt(self, s: str) -> int:
-        total = values.get(s[-1])
-        for i in reversed(range(len(s) - 1)):
-            if values[s[i]] < values[s[i + 1]]:
-                total -= values[s[i]]
-            else:
-                total += values[s[i]]
-        return total
+        s=s.replace("IV","IIII")
+        s=s.replace("IX","VIIII")
+        s=s.replace("XL","XXXX")
+        s=s.replace("XC","LXXXX")
+        s=s.replace("CD","CCCC")
+        s=s.replace("CM","DCCCC")
+        num=0
+        for char in s:
+            num+=values[char]
+        return num
