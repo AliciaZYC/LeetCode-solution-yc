@@ -1,11 +1,14 @@
 
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        hset = {}
-        for idx in range(len(nums)):
-            if nums[idx] in hset and abs(idx - hset[nums[idx]]) <= k:
+        seen = {}
+
+        for i, val in enumerate(nums):
+            if val in seen and i - seen[val] <= k:
                 return True
-            hset[nums[idx]] = idx
+            else:
+                seen[val] = i
+        
         return False
 # class Solution:
 #     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
