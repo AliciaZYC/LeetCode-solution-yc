@@ -1,8 +1,9 @@
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         wordList = set(wordList)
+        if endWord not in wordList:
+            return 0
         dq = deque([(beginWord, 0)])
-
         # 开始 BFS 遍历
         while dq:
             curr_word, steps = dq.popleft()
