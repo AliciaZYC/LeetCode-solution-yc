@@ -1,32 +1,21 @@
 class Solution:
-    def __init__(self):
-        self.res = []
     def permute(self, nums: List[int]) -> List[List[int]]:
-        # 记录「路径」
-        track = []
-        # 「路径」中的元素会被标记为 true，避免重复使用
-        used = [False] * len(nums)  
-        self.backtrack(nums, track, used)
-        return self.res
-    # 路径：记录在 track 中
-    # 选择列表：nums 中不存在于 track 的那些元素（used[i] 为 false）
-    # 结束条件：nums 中的元素全都在 track 中出现
-    def backtrack(self, nums: List[int], track: List[int], used: List[bool]):
-        # 触发结束条件
-        if len(track) == len(nums):
-            self.res.append(track.copy())
-            return   
-        for i in range(len(nums)):
-            # 排除不合法的选择
-            if used[i]: 
+        # 定义回溯函数，用于生成从 start 开始的所有排列
+        def backtrack(start):
+            # 如果 start 到达了 nums 的末尾，说明生成了一个完整的排列
+            if start == len(nums):
+                res.append(nums[:])  # 将当前排列加入结果（注意要使用 nums[:] 复制列表）
+                return
+            
+            # 遍历所有可以交换的位置
+            for i in range(start, len(nums)):
+                # 交换当前位置 start 和 i，使 i 元素放到当前位置
+                nums[start], nums[i] = nums[i], nums[start]
+                # 继续递归处理下一个位置
+                backtrack(start + 1)
+                # 回溯：将交换的元素换回来，恢复现场
+                nums[start], nums[i] = nums[i], nums[start]
 
-                # nums[i] 已经在 track 中，跳过
-                continue
-            # 做选择
-            track.append(nums[i])
-            used[i] = True
-            # 进入下一层决策树
-            self.backtrack(nums, track, used)
-            # 取消选择
-            track.pop()
-            used[i] = False
+        res = []  # 用于存储所有的排列结果
+        backtrack(0)  # 从索引 0 开始生成排列
+        return res  # 返回所有排列
