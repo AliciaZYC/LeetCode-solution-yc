@@ -6,7 +6,7 @@ class Solution:
             mid = left + (right - left)//2
             hours = 0
             for pile in piles:
-                hours += (pile+mid-1)//mid
+                hours += (pile+mid-1)//mid #向上取整
             if hours <= h:
                 ans = mid
                 right = mid
