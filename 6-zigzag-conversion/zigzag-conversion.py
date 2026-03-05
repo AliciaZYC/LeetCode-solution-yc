@@ -1,5 +1,6 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
+        # special case
         if numRows==1 or numRows>=len(s):
             return s
         else:
