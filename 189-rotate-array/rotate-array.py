@@ -6,11 +6,15 @@ class Solution:
         n = len(nums)
         k %= n
         j = n-1
+        # 翻转从left到right
         def reverse(left, right):
             while left < right:
                 nums[left], nums[right] = nums[right], nums[left]
                 left += 1
                 right -= 1
+        # 全部倒序
         reverse(0,n-1)
+        # 翻转前1-k
         reverse(0,k-1)
+        # 翻转剩余的
         reverse(k,n-1)
