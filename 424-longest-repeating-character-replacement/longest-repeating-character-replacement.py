@@ -12,4 +12,5 @@ class Solution:
                 freq[s[start]]-=1
                 start+=1
             res = end+1-start
+            # res = max(res, end - start + 1)  # 推荐写法，但是其实效果相同
         return res
