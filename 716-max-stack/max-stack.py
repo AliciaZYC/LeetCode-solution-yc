@@ -25,6 +25,8 @@ class MaxStack:
         val, idx = self.values.pop()
         self.stack.remove((idx,val))
         return val
+
+        #本质上是维持两个sorted list，一个sort value，一个sort index，pop的时候根据要求，pop对应的sorted list再remove掉另一个sorted list里的element
         
 
 
