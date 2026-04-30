@@ -10,7 +10,7 @@ class Solution:
         for x in range(n):
             for y in range(n):
                 res += abs(matrix[x][y])
-                if matrix[x][y] < 0:
+                if matrix[x][y] <= 0:
                     count += 1
                 track = min(track,abs(matrix[x][y]))
         if count%2 != 0:
