@@ -1,30 +1,28 @@
 class Solution:
     def separateSquares(self, squares: List[List[int]]) -> float:
-        total_area = sum(s * s for _, _, s in squares)
-        target = total_area / 2
+        total_area, max_y = 0, 0
 
-        def area_below(y):
-            """所有正方形在 y 以下的面积之和"""
-            res = 0.0
-            for x, yi, s in squares:
-                top = yi + s
-                if y <= yi:
-                    res += 0
-                elif y >= top:
-                    res += s * s
-                else:
-                    res += (y - yi) * s  # 部分覆盖
-            return res
+        for x, y, l in squares:
+            total_area += l**2
+            max_y = max(max_y, y+l)
+        
+        def area_below(y_limit):
+            area = 0
+            for x, y, l in squares:
+                if y < y_limit:
+                    area += l * min(l, y_limit - y)
+            
+            return area
 
-        # 二分 y 的范围
-        lo = min(sq[1] for sq in squares)
-        hi = max(sq[1] + sq[2] for sq in squares)
+        left, right = float(min(y for x, y, l in squares)), float(max_y)
+        eps = 10**-5
+        while right-left > eps:
+            mid = left+(right-left)/2
 
-        for _ in range(50):  # 100次足够精度
-            mid = (lo + hi) / 2
-            if area_below(mid) < target:
-                lo = mid
+            if area_below(mid) >= total_area / 2:
+                right = mid
+            
             else:
-                hi = mid
-
-        return (lo + hi) / 2
+                left = mid
+        
+        return right
